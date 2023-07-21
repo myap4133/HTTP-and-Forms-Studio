@@ -3,10 +3,28 @@
 <head>
 	<meta charset="utf-8">
 	<script>
+		actions = {google:"https://www.google.com/search", duckDuckGo:"https://duckduckgo.com/", bing:"https://www.bing.com/search", ask:"https://www.ask.com/web"};
 		// TODO: create a handler
-    window.addEventListener("load", function(){
-        // TODO: register the handler
-    });
+		function setSearchEngine(){
+			let text = document.getElementById("q");
+			let engine = document.querySelector("input[name=engine]:checked");
+			if(text.value===""){
+				window.alert("Add text to the search bar");
+			}
+			else if(!engine){
+				window.alert("Need to choose a search engine");
+			}
+			else{
+				let actionURL = actions[engine.value];
+				const form = document.getElementById("searchForm");
+				form.setAttribute("action", actionURL);
+			}
+		}
+		
+    	window.addEventListener("load", function(){
+        	// TODO: register the handler
+			document.addEventListener("submit", setSearchEngine);
+    	});
 	</script>
 </head>
 
@@ -14,6 +32,14 @@
 
 	<form id="searchForm">
     <!-- TODO: add form elements -->
+		<input type="text" name="q" id="q" required >
+		<label>
+			<label>Google<input type="radio" name="engine" value="google"></label>
+			<label>DuckDuckGo<input type="radio" name="engine" value="duckDuckGo"></label>
+			<label>Bing<input type="radio" name="engine" value="bing"></label>
+			<label>Ask<input type="radio" name="engine" value="ask"></label>
+		</label>
+		<button type="submit">Go!</button>
 	</form>
 
 </body>
